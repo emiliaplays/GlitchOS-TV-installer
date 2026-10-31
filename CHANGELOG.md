@@ -1,5 +1,12 @@
 # Changelog
 
+## Documentation refresh — 2026-10-31
+
+- Redesigned the project page around real launcher screenshots, features, compatibility and clear installation choices.
+- Added a beginner Windows setup guide, a complete changes/restore guide and a downloadable `AI-INSTALL.md` handoff for coding assistants.
+- Added actual home, app-library and AirPlay-control screenshots from the tested TV.
+- Kept installer 1.0.0 and launcher 1.3.1 unchanged. Download the current project ZIP for the updated documentation; the original v1.0.0 release bundle remains available as published.
+
 ## Installer 1.0.0 — 2026-10-31
 
 - Initial public installer package with GlitchOS TV Edition 1.3.1 source and tested launcher APK.

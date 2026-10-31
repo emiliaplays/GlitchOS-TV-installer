@@ -1,150 +1,123 @@
 # GlitchOS TV installer
 
-GlitchOS TV installer 1.0.0 brings **GlitchOS TV Edition 1.3.1** to a compatible Android TV: a remote-friendly home screen with a liquid-glass appearance, a direct Home-button configuration, reversible app cleanup and an optional repair for a specific CHiQ AirPlay receiver.
+**A cleaner home screen for your Android TV. Your apps, your favorites, your remote.**
 
-The configured system is fully working for the functions tested on the owner's **CHiQ TV, tentatively identified as L40G7B**, with verified firmware model **AI PONT running Android 14**: launcher navigation, app launching, direct Home, inputs, settings, and iPhone mirroring with picture, sound and rotation, including after a TV reboot. The retail model has not been independently checked against the physical label. This is a report for that unit and firmware, not a claim that every TV or streaming app is supported. See [tested devices and exact validation scope](docs/TESTED-DEVICES.md).
+GlitchOS TV Edition gives your TV an Apple TV-inspired home screen with a liquid-glass appearance. This project includes the launcher, a Windows installer, optional app cleanup and a repair for a specific CHiQ AirPlay receiver. It works on top of Android: no rooting or replacement firmware is needed.
 
-That TV was configured and tested before these public installer scripts were packaged. The public installer is checked with automated mock-device tests and a read-only device dry run; a complete installation through the public script has not yet been repeated on a TV.
+[**Download the project ZIP**](https://github.com/emiliaplays/GlitchOS-TV-installer/archive/refs/heads/main.zip) · [**Installation guide**](docs/GETTING-STARTED.md) · [**Let your coding AI help**](#let-your-coding-ai-help) · [Versioned releases](https://github.com/emiliaplays/GlitchOS-TV-installer/releases)
 
-GlitchOS is an Android launcher and a set of configuration tools. It does not replace the TV firmware or require rooting the TV.
+[![Distribution checks](https://github.com/emiliaplays/GlitchOS-TV-installer/actions/workflows/checks.yml/badge.svg)](https://github.com/emiliaplays/GlitchOS-TV-installer/actions/workflows/checks.yml)
 
-## What you get
+![GlitchOS TV Edition home screen with glass-style navigation, favorite apps and the app library](docs/images/launcher-home.png)
 
-- A native Java launcher with app artwork, favorites, local app search, a clock, and shortcuts to inputs and TV settings.
-- Glass-style translucent panels, reflective edges, focus highlights and a teal/lavender background. These use cached gradients rather than real-time background blur.
-- A direct Home-button setup that prevents Google TV from appearing before GlitchOS on the tested firmware.
-- Optional, reversible disabling of seven selected packages. Existing entertainment apps stay installed.
-- An optional local repair of the matching TV's own AirPlay receiver. It uses the original hardware decoder and does not add an ad-supported mirroring service.
+*A real screenshot from the tested TV, running launcher 1.3.1. App artwork comes from the apps installed on the TV.*
 
-The launcher has no Internet permission, advertisements, account or feed service. It uses Android SDK UI classes without a third-party UI framework. No comparative performance or memory benchmark is claimed.
+## What changes on your TV?
 
-## Compatibility
+| Feature | What you get |
+| --- | --- |
+| **Your own home screen** | Favorites, installed apps, search and a clock, without a recommendation feed or launcher ads. |
+| **Glass-style design** | Translucent panels, reflective edges and clear remote-focus highlights. |
+| **Direct Home button** | On the tested firmware, Home opens GlitchOS without briefly showing Google TV first. |
+| **Remote controls** | Navigate with the D-pad and OK. Hold OK on an app to manage favorites or open its app information. |
+| **Useful shortcuts** | Open the TV's settings, input selector and supported AirPlay controls. |
+| **Optional cleanup** | Disable seven selected preinstalled packages while keeping your entertainment apps. |
+| **Backups and restore** | Save the previous configuration before applying changes, with a script to restore it. |
 
-The launcher APK targets Android TV and requires Android 8.0/API 26 or newer. The complete installer requires **Android TV API 29 or newer and active Android user 0**. Device-specific Home priorities, input selectors and receiver services vary, so the tested Android 14 result does not establish compatibility with every Android TV.
+The launcher itself has no Internet permission or account requirement. The glass appearance uses gradients and translucent surfaces, not live background blur. The project does not promise measured speed gains, extra storage from disabling system apps, or system-wide ad blocking.
 
-The AirPlay repair is narrower: the verified original receiver is **CHAirPlay 2.0.20.33**, version code **2000033**, package `com.homwee.mmp.screenshare`, on the firmware recorded in [TESTED-DEVICES.md](docs/TESTED-DEVICES.md). An app version alone is not enough to establish compatibility; the original binary must match the repair's expected fingerprints.
+## See it on a real TV
 
-No CHiQ/Changhong receiver APK, native library or decompiled vendor source is distributed here. The repair is generated locally from the owner's matching TV. Only the GlitchOS launcher APK is supplied in [`releases/`](releases/).
+| App library | AirPlay controls |
+| --- | --- |
+| ![GlitchOS app library showing streaming, music, games and TV apps](docs/images/launcher-apps.png) | ![GlitchOS AirPlay instructions showing the receiver name GlitchOS TV](docs/images/launcher-airplay.png) |
+| Browse the apps already installed on your TV. | Connect from the iPhone's Screen Mirroring menu on a supported receiver. |
 
-## Install on Windows
+These are unedited device captures, not mockups. The AirPlay image shows the connection instructions; it is not a capture of a mirrored phone. [View full-size screenshots and capture details](docs/SCREENSHOTS.md).
 
-You need PowerShell, [official Android SDK Platform-Tools](https://developer.android.com/tools/releases/platform-tools) (`adb.exe`), the TV's network address and authorized ADB debugging on the TV. Keep the repository's directory structure intact. Replace the example paths and `TV_IP` below with your own values.
+## Will it work on my TV?
+
+| Part | Requirement |
+| --- | --- |
+| **Windows installer** | Windows PowerShell 5.1 or PowerShell 7, Android TV 10/API 29 or newer, active Android owner user 0, and an authorized ADB connection. |
+| **Launcher APK by itself** | Android TV 8/API 26 or newer. The installer needs the newer version above. |
+| **AirPlay repair** | The exact supported CHiQ receiver binary. It is optional and is not a universal AirPlay app. |
+
+Samsung Tizen, LG webOS and Roku TVs cannot run this Android launcher. Other Android TVs may handle Home, inputs and receiver services differently; meeting the Android version requirement does not mean a model has been tested.
+
+**Tested TV:** the owner's CHiQ, reported as likely **L40G7B**, with verified Android model **Changhong AI PONT**, **Android 14**, build **UKNV.260603.001**. The configured TV worked for the tested launcher, Home, settings/input and AirPlay functions, including picture, sound, rotation and reconnection after reboot. The retail model has not been checked against its physical label.
+
+The TV was configured before the portable installer was packaged. The installer passed 51 simulated-device assertions on PowerShell 5.1 and 7, plus a read-only preview on that TV; a fresh end-to-end install through the public script has not been repeated on a TV. [Read the complete test record](docs/TESTED-DEVICES.md).
+
+## Let your coding AI help
+
+**Give your coding AI [AI-INSTALL.md](AI-INSTALL.md), and ask it to help set up GlitchOS for you.** The file contains the repository location, compatibility checks, installation steps, optional choices and recovery instructions.
+
+1. [**Download AI-INSTALL.md**](https://github.com/emiliaplays/GlitchOS-TV-installer/releases/download/v1.0.0/AI-INSTALL.md). You can also [read it on GitHub](AI-INSTALL.md) or [open the raw Markdown](https://raw.githubusercontent.com/emiliaplays/GlitchOS-TV-installer/main/AI-INSTALL.md) and save it as `AI-INSTALL.md`.
+2. Attach that file to your coding AI or place it in its workspace.
+3. Send this message:
+
+   > Read AI-INSTALL.md and help me install GlitchOS TV on my TV. Check compatibility first, explain the changes and optional cleanup, keep my streaming apps, and save the restore backup. Tell me when you need me to use the TV remote.
+
+A coding AI with terminal access to your Windows computer can run the setup commands. An AI that only chats can guide you through them. You still need to approve the debugging prompt on the TV and check the picture with your remote. The file does not give an AI automatic access to your devices.
+
+## Prefer to install it yourself?
+
+Follow the [step-by-step Windows guide](docs/GETTING-STARTED.md). It covers downloading the files, finding the TV's address, enabling debugging, connecting ADB, previewing the changes and installing.
+
+**Before applying the default setup:** it makes GlitchOS your Home screen and disables the installed Google TV Home/setup packages. This affects Google TV's profile and setup flows until restored. Cleanup of the seven extra apps is a separate option. [See every change and how to undo it](docs/CHANGES-AND-RESTORE.md).
+
+If you already have an authorized ADB connection, open PowerShell in the extracted project folder. Set these values to your own ADB path and the device address/serial shown by `adb devices`:
 
 ```powershell
-$adb = 'C:\Android\platform-tools\adb.exe'
-$tv = 'TV_IP:5555'
-& $adb connect $tv
-```
+$adb = 'C:\Tools\platform-tools\adb.exe'
+$tv = 'YOUR_TV_ADDRESS:PORT'
 
-Accept the TV's debugging prompt if this computer is not already authorized. First inspect the proposed changes:
-
-```powershell
+# Preview only: no TV settings are changed.
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Install-GlitchOSTV.ps1 -Device $tv -AdbPath $adb -WhatIf
-```
 
-`-WhatIf` reads the device and reports the plan without changing the TV or creating a backup. To install the supplied launcher and configure direct Home, run without `-WhatIf`:
-
-```powershell
+# Apply the default launcher and Home setup.
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Install-GlitchOSTV.ps1 -Device $tv -AdbPath $adb
 ```
 
-Optional switches:
+Use the port your TV exposes; pairing-based wireless debugging does not normally use `5555`. Keep the backup path printed by the installer. Preview again with the same options if you choose cleanup or AirPlay.
 
-| Option | Purpose |
+## What about AirPlay?
+
+The tested receiver disconnected because its advertised pairing capabilities did not agree with its connection response. A small correction restored working picture and sound while retaining the original hardware decoder.
+
+The repository includes a **local repair builder**, not a downloadable CHiQ receiver APK. It checks the owner's original APK against the supported checksum, creates a separate repaired app and signs it with a local key. The original system app stays installed. Other receiver builds are rejected rather than patched with guessed offsets.
+
+[Build and install the optional AirPlay repair →](docs/AIRPLAY.md)
+
+Successful mirroring on the tested TV does not establish support for every iPhone, AirPlay 2, HomeKit or protected streaming content.
+
+## Versions and downloads
+
+| Component | Included version |
 | --- | --- |
-| `-Cleanup` | Apply the seven-package allowlist below. Canary WebView is skipped if it is active or the active provider cannot be identified. |
-| `-AirPlayApk 'C:\local\GlitchOS-AirPlay.apk'` | Install a compatible repaired receiver that you built locally. See [AirPlay build instructions](docs/AIRPLAY.md). |
-| `-AirPlayName 'GlitchOS TV'` | Set a sharing name when configuring the supported AirPlay receiver. |
-| `-LauncherApk 'C:\local\launcher.apk'` | Use a different launcher APK instead of the supplied release. |
-| `-BackupDirectory 'C:\private\tv-backups'` | Choose a private backup destination; the default is the repository's `backups/` folder. |
+| Installer scripts | **1.0.0** |
+| GlitchOS TV Edition launcher | **1.3.1**, version code **9** |
+| Supported original AirPlay receiver | **CHAirPlay 2.0.20.33**, version code **2000033** |
 
-For example, after building the matching repair locally:
+[Download the current project](https://github.com/emiliaplays/GlitchOS-TV-installer/archive/refs/heads/main.zip) for the latest guides, screenshots and AI installation file. [Versioned releases](https://github.com/emiliaplays/GlitchOS-TV-installer/releases) preserve earlier bundles; the v1.0.0 bundle predates these documentation improvements. The launcher APK is unchanged.
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Install-GlitchOSTV.ps1 -Device $tv -AdbPath $adb -Cleanup -AirPlayApk 'C:\local\GlitchOS-AirPlay.apk' -AirPlayName 'GlitchOS TV'
-```
+The supplied launcher is in [`releases/`](releases/). Verify it using [SHA256SUMS](releases/SHA256SUMS). Version details are also available in [version.json](version.json) and the [changelog](CHANGELOG.md).
 
-`-Device` is required. `-AdbPath` can be omitted when `adb` is on `PATH`. Keep the saved state file and backup directory private; they record device-specific values and are not for publication.
+## Guides, help and source
 
-After installing or naming a repaired receiver, open GlitchOS's AirPlay control and turn it off, then on, to activate the selected receiver and sharing name.
-
-## Restore or report a device
-
-Use the state file printed by the installer to restore the captured configuration:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Restore-GlitchOSTV.ps1 -Device $tv -AdbPath $adb -StateFile 'C:\private\tv-backups\YOUR_STATE_FILE.json'
-```
-
-Restore returns the captured settings and package states. A repaired receiver newly added by this installer is disabled on restore so GlitchOS can use the original receiver again; its APK and data remain installed. The launcher remains installed as an app, and previously installed APK versions are not rolled back. Restoring the original receiver can restore its original pairing problem.
-
-For a report that omits device identifiers:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Get-TVReport.ps1 -Device $tv -AdbPath $adb -OutputFile '.\tv-report.json'
-```
-
-Read [PRIVACY.md](docs/PRIVACY.md) before sharing reports or backup files. See [NOTICE.md](NOTICE.md) for attribution and distribution details; no broad license grant has been selected for this initial release.
-
-## Home behavior and cleanup
-
-The direct Home configuration disables these installed packages for the selected Android user:
-
-| Package | Effect |
+| I want to… | Open this |
 | --- | --- |
-| `com.google.android.apps.tv.launcherx` | Disables Google TV Home and its profile chooser. |
-| `com.google.android.tungsten.setupwraith` | Disables Google TV setup/recovery and related setup/account flows. |
+| Install for the first time | [Getting started](docs/GETTING-STARTED.md) |
+| Give the task to a coding AI | [AI-INSTALL.md](AI-INSTALL.md) |
+| Understand cleanup or undo the setup | [Changes and restore](docs/CHANGES-AND-RESTORE.md) |
+| Fix the supported CHiQ AirPlay receiver | [AirPlay guide](docs/AIRPLAY.md) |
+| Check what was tested | [Tested devices](docs/TESTED-DEVICES.md) |
+| Build or modify the launcher | [Launcher source and build instructions](launcher/README.md) |
+| Report a problem | [Open an issue](https://github.com/emiliaplays/GlitchOS-TV-installer/issues/new/choose) |
 
-Restore the saved Google configuration before changing Google TV profiles, using setup/account flows, or resetting the TV. These packages stay installed. Firmware updates may enable them again.
+Share your model, Android version and the relevant error when asking for help. Keep backups, signing keys and personal device logs private; see [privacy notes](docs/PRIVACY.md).
 
-The optional cleanup consists of seven packages:
+For developers, the [automated checks](.github/workflows/checks.yml) verify release metadata, installer/restore behavior and the AirPlay patch. They use simulated device data and do not need a TV or vendor APK. Full receiver builds were also validated locally on PowerShell 5.1 and 7.
 
-| Package | What is disabled |
-| --- | --- |
-| `com.homwee.store` | CHiQ retail/demo mode; this is not Google Play Store. |
-| `com.google.android.feedback` | Google feedback reporting. |
-| `com.google.android.webview.canary` | The inactive Canary WebView provider; retain the active stable provider. |
-| `com.google.android.syncadapters.calendar` | Calendar account synchronization. |
-| `com.homwee.mmp.fileexplorer` | CHiQ's USB/media file browser. |
-| `com.homwee.mmp.imageplayer` | CHiQ's photo viewer. |
-| `com.homwee.help` | CHiQ's help app. |
-
-On the tested TV, Netflix, Prime Video, YouTube, YouTube Music, Spotify, Crunchyroll, RTL+, IPTV, Roblox, GeForce NOW and Google Play Games were retained. Play Store, TV Settings, the stable WebView provider and input services were also retained. Retaining an app does not mean every app or protected video was playback-tested.
-
-Disabling a preinstalled package does **not** remove its APK from the system partition or reclaim that APK's storage. Restore uses the saved previous state rather than assuming every package was originally enabled.
-
-## AirPlay repair
-
-The failing receiver advertised inconsistent pairing capabilities: its discovery records differed from its connection response. The resulting invalid video data caused both hardware and software decoder failures. Correcting the advertised capability restored mirroring; changing the decoder was unnecessary.
-
-The repair changes exactly one ASCII byte in each of three native libraries, making the advertised capability `0x5A7FFFF7,0x1E` consistent with the receiver's response. It preserves the original authentication implementation, key derivation, hardware decoder and video settings.
-
-The locally built package is `com.glitchos.airplayrepair`. It installs beside the original system app because the vendor's signing key is unavailable. The original receiver remains intact. GlitchOS prefers the repaired service, stops the original service to avoid duplicate receivers, and controls startup. Production builds contain no diagnostic test activity or added header logger.
-
-To connect, show the GlitchOS home screen, enable AirPlay in its navigation bar, then use the iPhone's Control Center → Screen Mirroring. Both devices must be on the same network. The launcher displays the receiver's configured sharing name. Opening the manufacturer's sharing screen can change its service state; use GlitchOS's AirPlay toggle if the receiver needs restarting.
-
-Successful screen mirroring does not establish Apple certification, AirPlay 2, HomeKit or DRM-protected content compatibility. The project is not affiliated with Apple, Google, CHiQ or Changhong.
-
-## Build and release files
-
-The launcher source and Windows build instructions are in [`launcher/`](launcher/README.md). Building requires JDK 17, Android SDK Platform 35 and Build-Tools 35.0.0. A local build generates its own signing key in an ignored folder; no private signing key is included in this repository.
-
-The supplied release is [`GlitchOS-TV-Edition-1.3.1.apk`](releases/GlitchOS-TV-Edition-1.3.1.apk), version code 9. Its SHA-256 is:
-
-```text
-8b9de671dc1648afa1c8d49b58f792574fd2ec23e39eb4afb488469e0e6c4ce1
-```
-
-[`releases/SHA256SUMS`](releases/SHA256SUMS) records the same checksum. See [CHANGELOG.md](CHANGELOG.md) for version history.
-
-## Check the distribution
-
-These checks use local files and a simulated ADB device. They do not contact or change a TV:
-
-```powershell
-.\tests\Test-Release.ps1
-.\scripts\tests\Test-Installer.ps1
-.\tests\Test-AirPlayPatch.ps1
-```
-
-The GitHub Actions workflow runs these checks on Windows. The firmware-derived receiver build is tested locally because its original APK is not distributed in this repository.
+GlitchOS is an independent project, not affiliated with Apple, Google, CHiQ or Changhong. See [NOTICE.md](NOTICE.md) for distribution details; no broad open-source license has been selected.
