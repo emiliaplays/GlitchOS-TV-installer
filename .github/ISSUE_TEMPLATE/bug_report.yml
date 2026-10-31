@@ -1,0 +1,22 @@
+name: Bug report
+description: Report an installer or launcher problem without private device logs.
+body:
+  - type: textarea
+    id: device
+    attributes:
+      label: TV and software
+      description: Brand, model, Android version, firmware build and installer version. Do not include serial numbers, IP addresses or MAC addresses.
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Include steps, expected behavior and the relevant error after removing personal data. Do not upload vendor APKs or signing keys.
+    validations:
+      required: true
+  - type: textarea
+    id: recovery
+    attributes:
+      label: Current state
+      description: Can you open Home and Settings? Did the installer save a backup, and did restore work?

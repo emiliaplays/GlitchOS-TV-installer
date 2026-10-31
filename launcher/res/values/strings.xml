@@ -1,0 +1,3 @@
+<resources>
+    <string name="home_redirect_description">Opens GlitchOS when your TV returns to the Google TV home screen. Does not read screen contents or key presses.</string>
+</resources>

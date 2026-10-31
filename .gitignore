@@ -1,0 +1,25 @@
+# Device state and local receiver builds are private to their owner.
+/backups/
+/artifacts/
+/tools/
+/local/
+**/build/
+**/output/
+**/.keys/
+**/.local/
+*.jks
+*.keystore
+*.p12
+*.pem
+*.key
+*.log
+*.tmp
+*.zip
+*.apk
+!/releases/GlitchOS-TV-Edition-1.3.1.apk
+CHAirPlay*
+decoded/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

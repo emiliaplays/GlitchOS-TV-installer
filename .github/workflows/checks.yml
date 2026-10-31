@@ -1,0 +1,28 @@
+name: Validate distribution
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  windows-tests:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Verify release metadata and PowerShell syntax
+        shell: powershell
+        run: .\tests\Test-Release.ps1
+      - name: Exercise installer and restore against a simulated TV
+        shell: powershell
+        run: .\scripts\tests\Test-Installer.ps1
+      - name: Exercise strict AirPlay patch validation
+        shell: powershell
+        run: .\tests\Test-AirPlayPatch.ps1
