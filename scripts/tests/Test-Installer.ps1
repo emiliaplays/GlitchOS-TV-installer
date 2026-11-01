@@ -54,7 +54,7 @@ try {
     $repair = New-FixtureApk 'repair.apk' 'com.glitchos.airplayrepair'
     $wrong = New-FixtureApk 'wrong.apk' 'example.wrong'
     Assert-True ((Get-GlitchApkPackage $launcher) -eq 'com.glitchos.tv') 'APK manifest package parser'
-    $release = Join-Path (Split-Path $scriptRoot -Parent) 'releases\GlitchOS-TV-Edition-1.3.1.apk'
+    $release = Join-Path (Split-Path $scriptRoot -Parent) 'releases\GlitchOS-TV-Edition-1.4.0.apk'
     if (Test-Path -LiteralPath $release) { Assert-True ((Get-GlitchApkPackage $release) -eq 'com.glitchos.tv') 'Actual release compiled manifest parser' }
 
     # Exercise the public Windows PowerShell -File entrypoint with both path defaults.

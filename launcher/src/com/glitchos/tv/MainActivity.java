@@ -84,6 +84,11 @@ public final class MainActivity extends Activity {
     private View firstFavorite;
     private View firstApp;
     private View homeTab;
+    private View playingTab;
+    private NowPlayingView nowPlayingView;
+    private boolean nowPlayingOpen;
+    private boolean resumed;
+    private android.media.session.MediaSession.Token selectedMediaSession;
     private int columns;
     private int tileWidth;
     private int tileHeight;
@@ -122,6 +127,8 @@ public final class MainActivity extends Activity {
             query = state.getString("query", "");
             lastFocusedPackage = state.getString("focus");
             lastFocusWasFavorite = state.getBoolean("favoriteFocus", true);
+            nowPlayingOpen = state.getBoolean("nowPlaying", false);
+            selectedMediaSession = state.getParcelable("mediaSession");
         }
         readFavorites();
         apps.addAll(discoverApps());
@@ -135,6 +142,7 @@ public final class MainActivity extends Activity {
 
     @Override protected void onResume() {
         super.onResume();
+        resumed = true;
         // Recheck after an install/update without restarting the receiver on every Home press.
         selectAirPlayReceiver();
         if (!airPlayStartupAttempted) {
@@ -151,9 +159,12 @@ public final class MainActivity extends Activity {
             buildScreen();
             scroll.post(() -> scroll.scrollTo(0, oldScroll));
         }
+        if (nowPlayingView != null) nowPlayingView.start();
     }
 
     @Override protected void onPause() {
+        resumed = false;
+        if (nowPlayingView != null) nowPlayingView.stop();
         handler.removeCallbacks(clockTick);
         super.onPause();
     }
@@ -173,6 +184,10 @@ public final class MainActivity extends Activity {
         out.putString("query", query);
         out.putString("focus", lastFocusedPackage);
         out.putBoolean("favoriteFocus", lastFocusWasFavorite);
+        out.putBoolean("nowPlaying", nowPlayingOpen);
+        if (nowPlayingView != null && nowPlayingView.getSelectedToken() != null)
+            selectedMediaSession = nowPlayingView.getSelectedToken();
+        out.putParcelable("mediaSession", selectedMediaSession);
         super.onSaveInstanceState(out);
     }
 
@@ -189,7 +204,7 @@ public final class MainActivity extends Activity {
             if (event.getRepeatCount() == 0) showSearch();
             return true;
         }
-        if (keyCode == KeyEvent.KEYCODE_MENU && lastFocusedPackage != null) {
+        if (!nowPlayingOpen && keyCode == KeyEvent.KEYCODE_MENU && lastFocusedPackage != null) {
             if (event.getRepeatCount() == 0) {
                 for (App app : apps) {
                     if (app.packageName.equals(lastFocusedPackage)) {
@@ -205,9 +220,16 @@ public final class MainActivity extends Activity {
 
     private void buildScreen() {
         creating = true;
+        if (nowPlayingView != null) {
+            if (nowPlayingView.getSelectedToken() != null)
+                selectedMediaSession = nowPlayingView.getSelectedToken();
+            nowPlayingView.stop();
+        }
+        nowPlayingView = null;
         appViews.clear();
         firstFavorite = null;
         firstApp = null;
+        allAppsSection = null;
         float density = getResources().getDisplayMetrics().density;
         int widthDp = (int) (getResources().getDisplayMetrics().widthPixels / density);
         sidePadding = dp(widthDp >= 1000 ? 50 : 36);
@@ -236,6 +258,12 @@ public final class MainActivity extends Activity {
         content.setClipToPadding(false);
         scroll.addView(content, new ScrollView.LayoutParams(-1, -2));
         addHeader();
+        if (nowPlayingOpen) {
+            nowPlayingView = new NowPlayingView(this, this::goToApps, selectedMediaSession);
+            LinearLayout.LayoutParams playerParams = new LinearLayout.LayoutParams(-1, -2);
+            playerParams.topMargin = dp(20);
+            content.addView(nowPlayingView, playerParams);
+        } else {
         addHero();
         if (query.isEmpty()) addFavorites();
         addAllApps();
@@ -243,9 +271,16 @@ public final class MainActivity extends Activity {
         LinearLayout.LayoutParams hintParams = new LinearLayout.LayoutParams(-1, -2);
         hintParams.topMargin = dp(19);
         content.addView(hint, hintParams);
+        }
         setContentView(root);
         creating = false;
+        if (resumed && nowPlayingView != null) nowPlayingView.start();
         content.post(() -> {
+            if (nowPlayingView != null) {
+                playingTab.requestFocus();
+                scroll.scrollTo(0, 0);
+                return;
+            }
             View focus = findPreviousFocus();
             if (focus == null) focus = firstFavorite != null ? firstFavorite : firstApp;
             if (focus == null) focus = homeTab;
@@ -285,6 +320,8 @@ public final class MainActivity extends Activity {
         header.addView(navigation, new LinearLayout.LayoutParams(-2, dp(48)));
         homeTab = navButton("Home", this::goHome);
         navigation.addView(homeTab);
+        playingTab = navButton("Now Playing", this::goToNowPlaying);
+        navigation.addView(playingTab);
         navigation.addView(navButton("Apps", this::goToApps));
         navigation.addView(navButton("Search", this::showSearch));
         navigation.addView(navButton("Inputs", () -> openSettings(true)));
@@ -309,7 +346,7 @@ public final class MainActivity extends Activity {
         view.setFocusableInTouchMode(true);
         view.setClickable(true);
         view.setContentDescription(title);
-        boolean isHome = "Home".equals(title);
+        boolean isHome = nowPlayingOpen ? "Now Playing".equals(title) : "Home".equals(title);
         view.setBackground(rounded(isHome ? 0x28FFFFFF : Color.TRANSPARENT, dp(19), 0, 0));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-2, dp(38));
         params.leftMargin = dp(1);
@@ -577,11 +614,13 @@ public final class MainActivity extends Activity {
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Search apps").setView(wrapper)
                 .setPositiveButton("Search", (d, which) -> {
+                    nowPlayingOpen = false;
                     query = input.getText().toString().trim();
                     lastFocusedPackage = null;
                     buildScreen();
                 })
                 .setNeutralButton("Show all", (d, which) -> {
+                    nowPlayingOpen = false;
                     query = "";
                     lastFocusedPackage = null;
                     buildScreen();
@@ -786,7 +825,8 @@ public final class MainActivity extends Activity {
 
     private void goHome() {
         if (creating) return;
-        if (!query.isEmpty()) {
+        if (!query.isEmpty() || nowPlayingOpen) {
+            nowPlayingOpen = false;
             query = "";
             lastFocusedPackage = null;
             buildScreen();
@@ -797,7 +837,8 @@ public final class MainActivity extends Activity {
     }
 
     private void goToApps() {
-        if (!query.isEmpty()) {
+        if (!query.isEmpty() || nowPlayingOpen) {
+            nowPlayingOpen = false;
             query = "";
             lastFocusedPackage = null;
             buildScreen();
@@ -806,6 +847,12 @@ public final class MainActivity extends Activity {
         }
         if (firstApp != null) firstApp.requestFocus();
         if (allAppsSection != null) scroll.smoothScrollTo(0, Math.max(0, allAppsSection.getTop() - dp(28)));
+    }
+
+    private void goToNowPlaying() {
+        if (nowPlayingOpen) return;
+        nowPlayingOpen = true;
+        buildScreen();
     }
 
     private View findPreviousFocus() {
@@ -906,7 +953,7 @@ public final class MainActivity extends Activity {
     }
 
     /** Small static gradients suggest depth without sampling or blurring the screen. */
-    private static final class GlassSurfaceDrawable extends Drawable {
+    static final class GlassSurfaceDrawable extends Drawable {
         private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         private final RectF shape = new RectF();
         private final RectF inner = new RectF();
@@ -941,6 +988,8 @@ public final class MainActivity extends Activity {
 
         @Override public void draw(Canvas canvas) {
             if (shape.isEmpty()) return;
+            // The inner stroke changes Paint alpha; reset it for every redraw.
+            paint.setAlpha(255);
             paint.setStyle(Paint.Style.FILL);
             paint.setShader(body);
             canvas.drawRoundRect(shape, radius, radius, paint);
@@ -952,6 +1001,7 @@ public final class MainActivity extends Activity {
             paint.setStrokeWidth(1f);
             paint.setColor(focused ? 0x40FFFFFF : 0x15FFFFFF);
             canvas.drawRoundRect(inner, Math.max(0f, radius - 1.6f), Math.max(0f, radius - 1.6f), paint);
+            paint.setAlpha(255);
             paint.setShader(glint);
             canvas.drawLine(shape.left + radius, shape.top + 1.2f,
                     shape.right - radius, shape.top + 1.2f, paint);

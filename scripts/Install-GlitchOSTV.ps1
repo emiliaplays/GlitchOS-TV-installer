@@ -10,7 +10,7 @@ param(
 )
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'GlitchOS.Common.ps1')
-if (!$LauncherApk) { $LauncherApk = Join-Path (Split-Path $PSScriptRoot -Parent) 'releases\GlitchOS-TV-Edition-1.3.1.apk' }
+if (!$LauncherApk) { $LauncherApk = Join-Path (Split-Path $PSScriptRoot -Parent) 'releases\GlitchOS-TV-Edition-1.4.0.apk' }
 if (!$BackupDirectory) { $BackupDirectory = Join-Path (Split-Path $PSScriptRoot -Parent) 'backups' }
 
 $LauncherApk = Assert-GlitchApkPackage $LauncherApk 'com.glitchos.tv'

@@ -12,6 +12,14 @@ GlitchOS TV Edition gives your TV an Apple TV-inspired home screen with a liquid
 
 *A real screenshot from the tested TV, running launcher 1.3.1. App artwork comes from the apps installed on the TV.*
 
+## New: Now Playing
+
+![Now Playing on the tested TV, showing Spotify artwork, title, progress and playback controls](docs/images/launcher-now-playing.png)
+
+**Launcher 1.4.0** adds play/pause, previous/next, 10-second skips, a player selector and a shortcut back to the media app. Unsupported controls are disabled. Spotify playback and two test sessions were checked on the TV. Some video apps stop their media session when you leave them; native AirPlay mirroring is not automatically controllable here.
+
+[Download release v1.1.0 with launcher 1.4.0](https://github.com/emiliaplays/GlitchOS-TV-installer/releases/tag/v1.1.0) Â· [Enable media controls or update an existing installation](docs/NOW-PLAYING.md)
+
 ## What changes on your TV?
 
 | Feature | What you get |
@@ -20,6 +28,7 @@ GlitchOS TV Edition gives your TV an Apple TV-inspired home screen with a liquid
 | **Glass-style design** | Translucent panels, reflective edges and clear remote-focus highlights. |
 | **Direct Home button** | On the tested firmware, Home opens GlitchOS without briefly showing Google TV first. |
 | **Remote controls** | Navigate with the D-pad and OK. Hold OK on an app to manage favorites or open its app information. |
+| **Now Playing** | Title, cover art, progress, play/pause, previous/next and player selection for compatible media apps. Requires optional media access. |
 | **Useful shortcuts** | Open the TV's settings, input selector and supported AirPlay controls. |
 | **Optional cleanup** | Disable seven selected preinstalled packages while keeping your entertainment apps. |
 | **Backups and restore** | Save the previous configuration before applying changes, with a script to restore it. |
@@ -53,7 +62,7 @@ The TV was configured before the portable installer was packaged. The installer 
 
 **Give your coding AI [AI-INSTALL.md](AI-INSTALL.md), and ask it to help set up GlitchOS for you.** The file contains the repository location, compatibility checks, installation steps, optional choices and recovery instructions.
 
-1. [**Download AI-INSTALL.md**](https://github.com/emiliaplays/GlitchOS-TV-installer/releases/download/v1.0.0/AI-INSTALL.md). You can also [read it on GitHub](AI-INSTALL.md) or [open the raw Markdown](https://raw.githubusercontent.com/emiliaplays/GlitchOS-TV-installer/main/AI-INSTALL.md) and save it as `AI-INSTALL.md`.
+1. [**Download AI-INSTALL.md**](https://github.com/emiliaplays/GlitchOS-TV-installer/releases/download/v1.1.0/AI-INSTALL.md). You can also [read it on GitHub](AI-INSTALL.md) or [open the raw Markdown](https://raw.githubusercontent.com/emiliaplays/GlitchOS-TV-installer/main/AI-INSTALL.md) and save it as `AI-INSTALL.md`.
 2. Attach that file to your coding AI or place it in its workspace.
 3. Send this message:
 
@@ -96,11 +105,11 @@ Successful mirroring on the tested TV does not establish support for every iPhon
 
 | Component | Included version |
 | --- | --- |
-| Installer scripts | **1.0.0** |
-| GlitchOS TV Edition launcher | **1.3.1**, version code **9** |
+| Installer scripts | **1.1.0** |
+| GlitchOS TV Edition launcher | **1.4.0**, version code **10** |
 | Supported original AirPlay receiver | **CHAirPlay 2.0.20.33**, version code **2000033** |
 
-[Download the current project](https://github.com/emiliaplays/GlitchOS-TV-installer/archive/refs/heads/main.zip) for the latest guides, screenshots and AI installation file. [Versioned releases](https://github.com/emiliaplays/GlitchOS-TV-installer/releases) preserve earlier bundles; the v1.0.0 bundle predates these documentation improvements. The launcher APK is unchanged.
+[Download the current project](https://github.com/emiliaplays/GlitchOS-TV-installer/archive/refs/heads/main.zip) for the latest guides, screenshots and AI installation file. [Versioned releases](https://github.com/emiliaplays/GlitchOS-TV-installer/releases) preserve earlier bundles; the older v1.0.0 bundle remains available. Release v1.1.0 includes launcher 1.4.0 and the complete updated documentation.
 
 The supplied launcher is in [`releases/`](releases/). Verify it using [SHA256SUMS](releases/SHA256SUMS). Version details are also available in [version.json](version.json) and the [changelog](CHANGELOG.md).
 

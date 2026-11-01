@@ -1,5 +1,15 @@
 # Changelog
 
+## Installer 1.1.0 / Launcher 1.4.0 — 2026-11-01
+
+- Bundle launcher 1.4.0 (version code 10), with a Now Playing tab showing active media sessions, embedded artwork and progress.
+- Add action-aware play/pause, previous/next, 10-second seek, player selection and return-to-app controls. Preserve selected player across Home/tab switches.
+- Handle missing metadata, session removal and media-access revocation/regrant. Stop media callbacks and progress updates when the tab is hidden.
+- Fix glass opacity across repeated redraws so focused controls remain readable.
+- Add a real Now Playing screenshot, setup/update instructions and updated AI handoff. Media access is optional and enabled separately; installer/restore scripts do not grant or revoke it.
+- Keep the existing AirPlay repair recipe and receiver unchanged. No OEM receiver APK or private signing key is distributed.
+- Tested Spotify title/art/progress and pause/resume on the CHiQ TV, plus controls and session switching with two temporary silent players. Full phone mirroring was previously tested; not repeated for this launcher-only update.
+
 ## Documentation refresh — 2026-10-31
 
 - Redesigned the project page around real launcher screenshots, features, compatibility and clear installation choices.

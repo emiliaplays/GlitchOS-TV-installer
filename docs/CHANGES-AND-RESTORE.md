@@ -112,3 +112,8 @@ For PowerShell 7, you can replace `powershell.exe` with `pwsh`. If restore rejec
 Returning to the original AirPlay receiver may also return its original pairing problem. Restore is an undo path, not another repair for that receiver.
 
 If ADB disconnects during installation, automatic restoration may be incomplete. Reconnect to the same TV and run restore with its saved state file. Keep the backup even after a successful restore in case you need to inspect what was changed.
+
+
+## Now Playing and existing installations
+
+See [Now Playing setup and updating](NOW-PLAYING.md). For an existing working installation, update the signed launcher APK with `adb install -r` instead of rerunning cleanup/Home configuration. Media access is optional: explain Android notification-listener access, honor existing authorization, and use the documented component-specific grant only when wanted. Keep a record of whether it was already enabled. Installer backups/restore do not capture this separate grant; revoke it separately only if this setup added it. Do not promise controls for apps without an active media session or for native AirPlay mirroring.

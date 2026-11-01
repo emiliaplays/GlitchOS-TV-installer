@@ -23,3 +23,9 @@ The Apps button scrolls to the library. Hold OK on an app to manage its favorite
 This is the launcher's connection-instructions dialog on the supported TV, with its receiver named **GlitchOS TV**. It is not a screenshot of a phone being mirrored. The owner separately verified picture, sound, rotation and reconnection after reboot. Receiver support is firmware-specific; read the [AirPlay repair guide](AIRPLAY.md).
 
 [Back to the project](../README.md)
+
+## Now Playing — launcher 1.4.0
+
+![Now Playing with active Spotify playback and a focused pause button](images/launcher-now-playing.png)
+
+Captured unedited on the same TV on **2026-11-01**, at 1280 × 720. This newer screenshot shows launcher 1.4.0; the earlier Home, Apps and AirPlay images above remain captures of 1.3.1. Cover art and titles belong to the content supplied by the active app. Spotify and pictured music are not bundled with the launcher.

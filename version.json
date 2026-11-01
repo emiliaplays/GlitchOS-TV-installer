@@ -1,30 +1,30 @@
 {
-  "installer": "1.0.0",
-  "launcher": {
-    "package": "com.glitchos.tv",
-    "versionName": "1.3.1",
-    "versionCode": 9,
-    "minSdk": 26,
-    "targetSdk": 34,
-    "apkSha256": "8b9de671dc1648afa1c8d49b58f792574fd2ec23e39eb4afb488469e0e6c4ce1"
-  },
-  "airplayRepair": {
-    "recipeVersion": "1.0.0",
-    "package": "com.glitchos.airplayrepair",
-    "originalPackage": "com.homwee.mmp.screenshare",
-    "upstreamVersionName": "2.0.20.33",
-    "upstreamVersionCode": 2000033,
-    "originalApkSha256": "6eae95d1f517b6f9f1beb903cd9d896b3106d58cdf077757cae6d8901a1077ec",
-    "distribution": "local-build-only"
-  },
-  "testedDevice": {
-    "brand": "CHiQ",
-    "manufacturer": "Changhong",
-    "androidModel": "AI PONT",
-    "androidVersion": "14",
-    "sdk": 34,
-    "buildId": "UKNV.260603.001",
-    "retailModel": "L40G7B",
-    "retailModelSource": "Owner-reported probable model; label not independently verified"
-  }
+    "installer":  "1.1.0",
+    "launcher":  {
+                     "package":  "com.glitchos.tv",
+                     "versionName":  "1.4.0",
+                     "versionCode":  10,
+                     "minSdk":  26,
+                     "targetSdk":  34,
+                     "apkSha256":  "0f21602dc6b2abcde436253f89a0a01d22933ad27f0d5472eb880f89ad5a3ff8"
+                 },
+    "airplayRepair":  {
+                          "recipeVersion":  "1.0.0",
+                          "package":  "com.glitchos.airplayrepair",
+                          "originalPackage":  "com.homwee.mmp.screenshare",
+                          "upstreamVersionName":  "2.0.20.33",
+                          "upstreamVersionCode":  2000033,
+                          "originalApkSha256":  "6eae95d1f517b6f9f1beb903cd9d896b3106d58cdf077757cae6d8901a1077ec",
+                          "distribution":  "local-build-only"
+                      },
+    "testedDevice":  {
+                         "brand":  "CHiQ",
+                         "manufacturer":  "Changhong",
+                         "androidModel":  "AI PONT",
+                         "androidVersion":  "14",
+                         "sdk":  34,
+                         "buildId":  "UKNV.260603.001",
+                         "retailModel":  "L40G7B",
+                         "retailModelSource":  "Owner-reported probable model; label not independently verified"
+                     }
 }

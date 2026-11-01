@@ -1,6 +1,6 @@
 # Launcher source
 
-This directory contains the exact Java source, resources and manifest for GlitchOS TV Edition 1.3.1, version code 9. The matching tested APK is in [`../releases`](../releases/). The launcher is a native Android app using Android SDK classes; it has no third-party UI framework or Internet permission.
+This directory contains the exact Java source, resources and manifest for GlitchOS TV Edition 1.4.0, version code 10. The matching tested APK is in [`../releases`](../releases/). The launcher is a native Android app using Android SDK classes; it has no third-party UI framework or Internet permission.
 
 ## Build on Windows
 
@@ -18,7 +18,7 @@ You can instead pass explicit installation paths:
 
 For tools stored outside the standard SDK layout, pass `-AndroidJarPath` and `-BuildToolsPath`. Other options include `-BuildToolsVersion`, `-CompileSdk`, `-VersionCode`, `-OutputPath`, `-KeystorePath` and `-KeyAlias`.
 
-The script compiles resources with aapt2, Java with javac, and DEX with D8, then aligns and signs the APK. The default output is `launcher/output/GlitchOS-TV-Edition-1.3.1.apk`. Each build uses a fresh ignored directory under `launcher/.local/build/`.
+The script compiles resources with aapt2, Java with javac, and DEX with D8, then aligns and signs the APK. The default output is `launcher/output/GlitchOS-TV-Edition-1.4.0.apk`. Each build uses a fresh ignored directory under `launcher/.local/build/`.
 
 ## Signing your builds
 
@@ -34,4 +34,4 @@ The published APK's checksum identifies that exact release. A local rebuild uses
 
 The launcher prefers `com.glitchos.airplayrepair` if installed, otherwise the original `com.homwee.mmp.screenshare`. It binds the selected receiver while visible and uses the firmware's existing background-service option. The repaired receiver is built separately from the owner's matching TV firmware; its code and binaries are not included here.
 
-AirPlay's displayed name is read from the firmware setting when available. The exact 1.3.1 source retains the original test receiver's fallback display name, `SmartTV(D245)`, for firmware that does not expose that setting. It does not connect to a hard-coded network address.
+AirPlay's displayed name is read from the firmware setting when available. The exact 1.4.0 source retains the original test receiver's fallback display name, `SmartTV(D245)`, for firmware that does not expose that setting. It does not connect to a hard-coded network address.

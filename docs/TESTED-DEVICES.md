@@ -10,9 +10,9 @@
 | Android version | Android 14 |
 | Android API level | 34 |
 | Firmware build | UKNV.260603.001 |
-| Test date | 2026-10-31 |
-| Launcher release | GlitchOS TV Edition 1.3.1, version code 9 |
-| Installer release | 1.0.0 |
+| Test dates | 2026-10-31 and 2026-11-01 |
+| Launcher release | GlitchOS TV Edition 1.4.0, version code 10 |
+| Installer release | 1.1.0 (script validation; device originally configured before packaging) |
 | Original receiver | CHAirPlay 2.0.20.33, version code 2000033 |
 | Original receiver package | `com.homwee.mmp.screenshare` |
 | Repaired package | `com.glitchos.airplayrepair` |
@@ -60,3 +60,9 @@ The public launcher build script was run successfully against JDK 17 and Android
 - The source uses the tested TV's native input action and receiver components; other TV firmware can implement these differently.
 
 When reporting another device, include its retail model, firmware-reported model, Android/API version, firmware build, receiver version and which functions passed. Do not include serial numbers, complete MAC addresses, private network addresses, account information or unredacted system logs.
+
+## Launcher 1.4.0 follow-up — 2026-11-01
+
+Installed as an update with the same signing key. Live Spotify title, artist, cover and progress appeared; actual pause/resume was confirmed by the player state. Two temporary silent test sessions verified play/pause, next/previous, exact +/-10,000 ms paused seeks, switching without playback commands, disabled unsupported controls, D-pad navigation and selected-player persistence across Home. Session removal and access revocation/regrant recovered without a crash. The active-session listener count returned from 8 to 7 on revocation and back to 8 on regrant. The temporary test app was removed.
+
+GlitchOS remained the Home resolver and the repaired AirPlay process remained running. No new full phone mirroring or reboot test was performed for 1.4.0; the receiver and its integration were not changed. Do not interpret the earlier AirPlay confirmation as a fresh test of this release.

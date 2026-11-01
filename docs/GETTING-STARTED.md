@@ -24,7 +24,7 @@ C:\GlitchOS\GlitchOS-TV-installer\
         Install-GlitchOSTV.ps1
         Restore-GlitchOSTV.ps1
     releases\
-        GlitchOS-TV-Edition-1.3.1.apk
+        GlitchOS-TV-Edition-1.4.0.apk
     docs\
     launcher\
 ```
@@ -221,3 +221,8 @@ Open GlitchOS's **AirPlay** control and turn it off, then on. Leave the GlitchOS
 | Installation fails partway through | Read the final message. The installer attempts to restore the captured configuration; if the connection dropped, reconnect and run restore with the printed backup path. |
 
 For restoration commands, use [Changes and restore](CHANGES-AND-RESTORE.md). When installation and testing are complete, you may turn debugging off in the TV settings; enable and authorize it again when you need to update or restore.
+
+
+## Now Playing and existing installations
+
+See [Now Playing setup and updating](NOW-PLAYING.md). For an existing working installation, update the signed launcher APK with `adb install -r` instead of rerunning cleanup/Home configuration. Media access is optional: explain Android notification-listener access, honor existing authorization, and use the documented component-specific grant only when wanted. Keep a record of whether it was already enabled. Installer backups/restore do not capture this separate grant; revoke it separately only if this setup added it. Do not promise controls for apps without an active media session or for native AirPlay mirroring.

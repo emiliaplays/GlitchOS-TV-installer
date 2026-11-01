@@ -12,10 +12,10 @@ If your AI only provides chat, it can explain the steps or help you run the comm
 
 - Canonical repository: [emiliaplays/GlitchOS-TV-installer](https://github.com/emiliaplays/GlitchOS-TV-installer).
 - Current guide: [AI-INSTALL.md on main](https://github.com/emiliaplays/GlitchOS-TV-installer/blob/main/AI-INSTALL.md).
-- Download the [current main branch ZIP](https://github.com/emiliaplays/GlitchOS-TV-installer/archive/refs/heads/main.zip), then extract the complete folder. This handoff guide and the new screenshot/setup documentation are not in the original v1.0.0 release ZIP. The installer and launcher versions below are unchanged by this documentation refresh.
-- Installer release baseline: **1.0.0**. Supplied launcher: **1.3.1**, version code **9**, package `com.glitchos.tv`.
-- Supplied APK: `releases/GlitchOS-TV-Edition-1.3.1.apk`.
-- Launcher SHA-256: `8b9de671dc1648afa1c8d49b58f792574fd2ec23e39eb4afb488469e0e6c4ce1`.
+- Download the [current main branch ZIP](https://github.com/emiliaplays/GlitchOS-TV-installer/archive/refs/heads/main.zip), then extract the complete folder. The v1.1.0 release ZIP also includes this guide and the Now Playing documentation.
+- Installer release baseline: **1.1.0**. Supplied launcher: **1.4.0**, version code **10**, package `com.glitchos.tv`.
+- Supplied APK: `releases/GlitchOS-TV-Edition-1.4.0.apk`.
+- Launcher SHA-256: `0f21602dc6b2abcde436253f89a0a01d22933ad27f0d5472eb880f89ad5a3ff8`.
 
 GlitchOS is a launcher and configuration tools, not a replacement operating system. The complete installer requires **Android TV API 29 or newer, with user 0 active**. The standalone APK's minimum API 26 does not lower the installer's requirements. This does not install on Samsung Tizen, LG webOS or Roku.
 
@@ -72,8 +72,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Get-TVReport.ps1 -
 Verify the downloaded launcher locally, in a normal PowerShell session:
 
 ```powershell
-$expected = '8b9de671dc1648afa1c8d49b58f792574fd2ec23e39eb4afb488469e0e6c4ce1'
-$actual = (Get-FileHash -LiteralPath '.\releases\GlitchOS-TV-Edition-1.3.1.apk' -Algorithm SHA256).Hash
+$expected = '0f21602dc6b2abcde436253f89a0a01d22933ad27f0d5472eb880f89ad5a3ff8'
+$actual = (Get-FileHash -LiteralPath '.\releases\GlitchOS-TV-Edition-1.4.0.apk' -Algorithm SHA256).Hash
 if ($actual.ToLowerInvariant() -ne $expected) { throw 'Launcher checksum mismatch; stop before installing.' }
 ```
 
@@ -181,3 +181,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Restore-GlitchOSTV
 Restore returns captured Home, selected package states, changed accessibility settings and the prior sharing name. It restores preexisting launcher/repair enabled states. A newly added repaired receiver is stopped and disabled, retaining its APK/data so the original receiver can be selected again. The launcher remains installed as an app unless it was previously installed in a disabled state, which is restored. App versions and app data are not rolled back. Restoring the original receiver can bring back its original pairing problem.
 
 If ADB disconnects or automatic restore is incomplete, retain the backup, reconnect to the same TV, and use the restore script. Do not factory-reset, remove unrelated packages or guess prior states to conceal a failed installation. Keep device backups and signing keys private; review `docs/PRIVACY.md` before sharing any diagnostic report.
+
+
+## Now Playing and existing installations
+
+See [Now Playing setup and updating](docs/NOW-PLAYING.md). For an existing working installation, update the signed launcher APK with `adb install -r` instead of rerunning cleanup/Home configuration. Media access is optional: explain Android notification-listener access, honor existing authorization, and use the documented component-specific grant only when wanted. Keep a record of whether it was already enabled. Installer backups/restore do not capture this separate grant; revoke it separately only if this setup added it. Do not promise controls for apps without an active media session or for native AirPlay mirroring.
